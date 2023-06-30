@@ -23,15 +23,16 @@ public class EmployeeController {
     private ResponseDTO responseDTO;
     @PostMapping(value="/saveEmployee")
     public ResponseEntity saveEmployee(@RequestBody EmployeeDTO employeeDTO){
+        System.out.println(employeeDTO.getContactNo());
         try{
             String res= employeeService.saveEmployee(employeeDTO);
-            if(res.equals("00")){
+            if(res.equals("000")){
                 responseDTO.setCode(VarList.RSP_DUPLICATED );
                 responseDTO.setMessage("Success");
                 responseDTO.setContent(employeeDTO);
                 return new ResponseEntity(responseDTO, HttpStatus.ACCEPTED);
 
-            }else if(res.equals("06")){
+            }else if(res.equals("006")){
                 responseDTO.setCode(VarList.RSP_DUPLICATED );
                 responseDTO.setMessage("Employee registered");
                 responseDTO.setContent(employeeDTO);

@@ -16,6 +16,6 @@ public class employee {
     @GeneratedValue(strategy = GenerationType.IDENTITY) // for generate Id
     private int empId;
     private String name;
-    private String ContactNo;
+    private String contactNo;
     private int acNo;
 }

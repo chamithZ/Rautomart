@@ -19,9 +19,11 @@ public class EmployeeService {
     private ModelMapper modelMapper;
     public String saveEmployee(EmployeeDTO employeeDTO){
         if(employeeRepo.existsById(employeeDTO.getEmpId())){
+            System.out.println("hellow");
             return VarList.RSP_DUPLICATED;
         }
         else{
+            System.out.println("hehe");
             employeeRepo.save(modelMapper.map(employeeDTO, employee.class));
             return VarList.RSP_SUCCESS;
         }
