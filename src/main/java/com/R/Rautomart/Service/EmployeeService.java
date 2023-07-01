@@ -6,8 +6,11 @@ import com.R.Rautomart.Repo.EmployeeRepo;
 import com.R.Rautomart.utill.VarList;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @Transactional
@@ -27,6 +30,22 @@ public class EmployeeService {
             employeeRepo.save(modelMapper.map(employeeDTO, employee.class));
             return VarList.RSP_SUCCESS;
         }
+    }
+
+    public String updateEmployee(EmployeeDTO employeeDTO){
+        if(employeeRepo.existsById(employeeDTO.getEmpId())){
+            employeeRepo.save(modelMapper.map(employeeDTO,employee.class));
+            return VarList.RSP_SUCCESS;
+        }
+        else{
+            return VarList.RSP_NO_DATA_FOUND;
+        }
+    }
+
+    public List<EmployeeDTO> getAllEmployee(){
+        List<employee> employeeList=employeeRepo.findAll();
+        return modelMapper.map(employeeList,new TypeToken<EmployeeDTO>(){
+        }.getType());
     }
 
 }
