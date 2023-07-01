@@ -4,10 +4,13 @@ import com.R.Rautomart.DTO.EmployeeDTO;
 import com.R.Rautomart.DTO.ResponseDTO;
 import com.R.Rautomart.Service.EmployeeService;
 import com.R.Rautomart.utill.VarList;
+import org.aspectj.weaver.ast.Var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/employee")
@@ -79,6 +82,24 @@ public class EmployeeController {
             responseDTO.setMessage(ex.getMessage());
             responseDTO.setContent(null);
             return new ResponseEntity(responseDTO, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/getAllEmployee")
+
+    public ResponseEntity getAllEmployees(){
+        try{
+           List<EmployeeDTO>  emp=employeeService.getAllEmployee();
+            responseDTO.setCode(VarList.RSP_DUPLICATED );
+            responseDTO.setMessage("Success");
+            responseDTO.setContent(emp);
+            return new ResponseEntity(responseDTO, HttpStatus.ACCEPTED);
+
+        }catch(Exception ex){
+            responseDTO.setCode(VarList.RSP_ERROR);
+            responseDTO.setMessage(ex.getMessage());
+            responseDTO.setContent((null));
+            return new ResponseEntity(responseDTO,HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }
