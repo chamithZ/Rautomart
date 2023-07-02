@@ -102,4 +102,30 @@ public class EmployeeController {
             return new ResponseEntity(responseDTO,HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @GetMapping("/searchEmployee/{empID}")
+    public ResponseEntity searchEmployee(@PathVariable int empID){
+        try{
+            EmployeeDTO empDTO= employeeService.searchEmployee(empID);
+            if(empDTO !=null){
+                responseDTO.setCode(VarList.RSP_DUPLICATED );
+                responseDTO.setMessage("Success");
+                responseDTO.setContent(empDTO);
+                return new ResponseEntity(responseDTO, HttpStatus.ACCEPTED);
+            }
+            else {
+                responseDTO.setCode(VarList.RSP_NO_DATA_FOUND);
+                responseDTO.setMessage("No employee found ");
+                responseDTO.setContent(null);
+                return new ResponseEntity(responseDTO, HttpStatus.BAD_REQUEST);
+
+            }}catch( Exception e){
+                responseDTO.setCode(VarList.RSP_ERROR );
+                responseDTO.setMessage(e.getMessage());
+                responseDTO.setContent(e);
+                return new ResponseEntity(responseDTO, HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+
+
+    }
 }
