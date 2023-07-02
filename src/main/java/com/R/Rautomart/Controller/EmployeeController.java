@@ -2,6 +2,8 @@ package com.R.Rautomart.Controller;
 
 import com.R.Rautomart.DTO.EmployeeDTO;
 import com.R.Rautomart.DTO.ResponseDTO;
+import com.R.Rautomart.Entity.employee;
+import com.R.Rautomart.Repo.EmployeeRepo;
 import com.R.Rautomart.Service.EmployeeService;
 import com.R.Rautomart.utill.VarList;
 import org.aspectj.weaver.ast.Var;
@@ -125,7 +127,33 @@ public class EmployeeController {
                 responseDTO.setContent(e);
                 return new ResponseEntity(responseDTO, HttpStatus.INTERNAL_SERVER_ERROR);
             }
-
-
     }
+
+
+    @DeleteMapping("/deleteEmployee/{empID}")
+    public ResponseEntity deleteEmployee(@PathVariable int empID){
+        try{
+            String emp= employeeService.deleteEmployee(empID);
+            if(emp.equals("000")){
+                responseDTO.setCode(VarList.RSP_DUPLICATED );
+                responseDTO.setMessage("Success");
+                responseDTO.setContent(emp);
+                return new ResponseEntity(responseDTO, HttpStatus.ACCEPTED);
+            }
+            else {
+                responseDTO.setCode(VarList.RSP_NO_DATA_FOUND);
+                responseDTO.setMessage("No employee found ");
+                responseDTO.setContent(null);
+                return new ResponseEntity(responseDTO, HttpStatus.BAD_REQUEST);
+
+            }}catch( Exception e){
+            responseDTO.setCode(VarList.RSP_ERROR );
+            responseDTO.setMessage(e.getMessage());
+            responseDTO.setContent(e);
+            return new ResponseEntity(responseDTO, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
+
 }
