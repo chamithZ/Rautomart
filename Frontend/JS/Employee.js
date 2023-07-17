@@ -25,8 +25,9 @@ function saveEmp() {
       alert('saved');
       getAllEmployees();
     },
-    error: function(xhr, status, error) {
-      alert('Error');
+    fail: function(xhr, status, error) {
+      alert('Something went wrong. Please try again later.');
     }
   });
 }
+
