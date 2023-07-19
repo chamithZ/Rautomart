@@ -5,30 +5,33 @@ import axios from 'axios';
 
 function App() {
 
-    const [name,setname]=useState();
-    const [contact,setContact]=useState();
-    const [address,setAddress] =useState();
+    const [name,setname]=useState("");
+    const [contact,setContact]=useState("");
+    const [address,setAddress] =useState("");
 
+
+
+    console.log(contact)
+
+ 
 
     function saveEmp() {
-        let data = {
-          empId: "",
-          name: name,
-          contactNo: contact,
-          acNo: address,
-        };
         alert(name);
-      
-        // Send the data using Axios
+        let data = {
+          "empId": "",
+          "name": name,
+          "contactNo": contact,
+          "acNo": address,
+        };
+
         axios.post('http://localhost:8080/api/v1/employee/saveEmployee', data, {
           headers: {
             'Content-Type': 'application/json',
           },
-          withCredentials: true, // To include cookies and authentication headers if needed
+          withCredentials: true, 
         })
           .then((response) => {
             alert('Saved');
-            // Handle the response data here if needed
           })
           .catch((error) => {
             alert('Something went wrong. Please try again later.');
@@ -60,17 +63,17 @@ function App() {
 
         <div class="mb-3 ">
             <label for="exampleFormControlInput1" class="form-label">Employ Name: </label>
-            <input type="text" class="form-control" id="name" placeholder="Ex : John" onChange={setname}/>
+            <input type="text" class="form-control" id="name" placeholder="Ex : John" onChange={(e) => setname(e.target.value)}/>
         </div>
 
         <div class="mb-3 ">
             <label for="exampleFormControlInput1" class="form-label">Contact no: </label>
-            <input type="text" class="form-control" id="contact" placeholder="0XX -XXXXXXX" onChange={setContact}/>
+            <input type="text" class="form-control" id="contact" placeholder="0XX -XXXXXXX" onChange={(e) => setContact(e.target.value)}/>
         </div>
 
         <div class="mb-3 ">
             <label for="exampleFormControlInput1" class="form-label">Account No</label>
-            <input type="text" class="form-control" id="address" placeholder="" onChange={setAddress}/>
+            <input type="text" class="form-control" id="address" placeholder=""onChange={(e) => setAddress(e.target.value)}/>
         </div>
 
         <div>
